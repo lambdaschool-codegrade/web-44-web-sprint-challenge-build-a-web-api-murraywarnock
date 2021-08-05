@@ -11,8 +11,8 @@ const server = express();
 
 server.use(express.json());
 server.use(helmet()); 
-// server.use('/api/projects', (req, res, next) => {next()}, projectsRouter);
-// server.use('/api/actions', (req, res, next) => {next()}, actionsRouter);
+server.use('/api/projects', (req, res, next) => {next()}, projectsRouter);
+server.use('/api/actions', (req, res, next) => {next()}, actionsRouter);
 
 
 
