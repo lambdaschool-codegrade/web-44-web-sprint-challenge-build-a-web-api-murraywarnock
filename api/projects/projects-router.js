@@ -3,9 +3,9 @@ const express = require('express');
 const Projects = require('./projects-model');
 const router = express.Router();
 
-const { logger, checkProjectIdExists, checkValidProject } = require('../middleware/middleware')
+const { checkProjectIdExists, checkValidProject } = require('../middleware/projects-middleware')
 
-router.get('/', logger, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     try {
         const result = await Projects.get()
@@ -15,7 +15,7 @@ router.get('/', logger, async (req, res, next) => {
     }
 });
 
-router.get('/:id', logger, checkProjectIdExists, async (req, res, next) => {
+router.get('/:id', checkProjectIdExists, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     try {
         const result = await Projects.get(req.params.id)
@@ -25,7 +25,7 @@ router.get('/:id', logger, checkProjectIdExists, async (req, res, next) => {
     }
 });
 
-router.post('/', logger, checkValidProject, async (req, res, next) => {
+router.post('/', checkValidProject, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     try {
         await Projects.insert(req.body);
@@ -35,7 +35,7 @@ router.post('/', logger, checkValidProject, async (req, res, next) => {
     }
 });
 
-router.put('/:id', logger, checkProjectIdExists, checkValidProject, async (req, res, next) => {
+router.put('/:id', checkProjectIdExists, checkValidProject, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     try {
         await Projects.update(req.params.id, req.body);
@@ -45,7 +45,7 @@ router.put('/:id', logger, checkProjectIdExists, checkValidProject, async (req, 
     }
  });
 
- router.delete('/:id', logger, checkProjectIdExists, async (req, res, next) => {
+ router.delete('/:id', checkProjectIdExists, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     const { id } = req.params;
     await Projects.remove(id)
@@ -57,7 +57,7 @@ router.put('/:id', logger, checkProjectIdExists, checkValidProject, async (req, 
     }
 });
 
-router.get('/:id/actions', logger, checkProjectIdExists, async (req, res, next) => {
+router.get('/:id/actions', checkProjectIdExists, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     try {
         const projectActions = await Projects.getProjectActions(req.params.id);
