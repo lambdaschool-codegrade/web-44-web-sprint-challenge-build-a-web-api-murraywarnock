@@ -57,8 +57,8 @@ router.put('/:id', logger, checkProjectIdExists, checkValidProject, async (req, 
     // If the request body is missing any of the required fields it responds with a status code 400.
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     try {
-        const updProject = Projects.update(req.params.id, req.body);
-        res.status(201).json(updProject);
+        Projects.update(req.params.id, req.body);
+        res.status(201).json(req.body);
     } catch (error) {
         next(error);
     }
@@ -69,8 +69,8 @@ router.delete('/:id', logger, checkProjectIdExists, async (req, res, next) => {
      // RReturns no response body.
      // If there is no project with the given id it responds with a status code 404.
     try {
-        const deletedProject = Projects.remove(req.params.id);
-        res.status(201).json(deletedProject);
+        Projects.remove(req.params.id);
+        res.status(201);
     } catch (error) {
         next(error);
     }
