@@ -16,7 +16,7 @@ function checkActionIdExists(req, res, next) {
             req.action = action
             next()
         } else {
-            next({ message: `action with id ${id} not found!!!` })
+            next({ status: "404", message: `action with id ${id} not found!!!` })
         }
         })
         .catch(next)
@@ -30,7 +30,7 @@ function checkProjectIdExists(req, res, next) {
             req.project = project
             next()
         } else {
-            next({ message: `project with id ${id} not found!!!` })
+            next({  status: "404", message: `project with id ${id} not found!!!` })
         }
     })
         .catch(next)
