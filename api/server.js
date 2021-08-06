@@ -2,14 +2,14 @@
 const express = require('express');
 
 const helmet = require('helmet');
-const projectsRouter = require('./projects/projects-router');
-const actionsRouter = require('./actions/actions-router');
+const apiRoutes = require("./apiRoutes");
+// const projectsRouter = require('./projects/projects-router');
+// const actionsRouter = require('./actions/actions-router');
 const server = express();
 
 server.use(express.json());
 server.use(helmet()); 
-server.use('/api/projects', (req, res, next) => {next()}, projectsRouter);
-server.use('/api/actions', (req, res, next) => {next()}, actionsRouter);
+server.use("/api", apiRoutes);
 
 server.use('*', (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
