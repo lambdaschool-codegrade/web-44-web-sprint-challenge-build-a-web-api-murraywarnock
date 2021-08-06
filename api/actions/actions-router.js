@@ -1,7 +1,7 @@
 // Write your "actions" router here!
 const express = require('express');
 const Actions = require('./actions-model');
-const { checkActionIdExists, checkValidAction } = require('../middleware/actions-middleware')
+const { checkActionIdExists, checkValidAction } = require('./actions-middleware')
 
 const router = express.Router();
 

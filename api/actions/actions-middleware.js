@@ -1,4 +1,4 @@
-const Actions = require('../actions/actions-model');
+const Actions = require('./actions-model');
 
 function checkActionIdExists(req, res, next) {
     const { id } = req.params

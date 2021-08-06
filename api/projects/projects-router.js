@@ -3,7 +3,7 @@ const express = require('express');
 const Projects = require('./projects-model');
 const router = express.Router();
 
-const { checkProjectIdExists, checkValidProject } = require('../middleware/projects-middleware')
+const { checkProjectIdExists, checkValidProject } = require('./projects-middleware')
 
 router.get('/', async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
