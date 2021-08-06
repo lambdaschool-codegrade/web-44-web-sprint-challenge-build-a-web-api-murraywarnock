@@ -26,7 +26,7 @@ server.use((err, req, res, next) => { // error handling middleware
   // when someone else before calls next pasing an arg,
   // this thing shoots back a response to the client if anything goes wrong
   // in ANY of the middlewares that preceed this one
-  res.status(err.status || 404).json({ message: `HORROR: ${err.message}` });
+  res.status(err.status || 404).json({ message: `ERROR: ${err.message}` });
 });  
 
 module.exports = server;

@@ -64,10 +64,11 @@ router.put('/:id', logger, checkProjectIdExists, checkValidProject, async (req, 
     }
  });
  
-router.delete('/:id', logger, async (req, res, next) => {
+router.delete('/:id', logger, checkProjectIdExists, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
      // RReturns no response body.
      // If there is no project with the given id it responds with a status code 404.
+    Projects.remove(req.params.id, req.body)
     try {
         await Projects.remove(req.params.id);
         res.status(201);
