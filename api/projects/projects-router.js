@@ -7,21 +7,11 @@ const router = express.Router();
 
 const { logger, checkProjectIdExists, checkValidProject } = require('../middleware/middleware')
 
-// module.exports = {
-//     get,
-//     insert,
-//     update,
-//     remove,
-//     getProjectActions,
-//   };
-
 router.get('/', logger, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
-    // Returns an array of projects as the body of the response.
-    // If there are no projects it responds with an empty array.
     try {
         const result = await Projects.get()
-        res.status(201).json(result)
+        res.status(200).json(result)
     } catch (error) {
         next(error)
     }
@@ -29,11 +19,9 @@ router.get('/', logger, async (req, res, next) => {
 
 router.get('/:id', logger, checkProjectIdExists, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
-    // Returns a project with the given id as the body of the response.
-    // If there is no project with the given id it responds with a status code 404.
     try {
         const result = await Projects.get(req.params.id)
-        res.status(201).json(result)
+        res.status(200).json(result)
     } catch (error) {
         next(error)
     }
@@ -58,20 +46,19 @@ router.put('/:id', logger, checkProjectIdExists, checkValidProject, async (req, 
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     try {
         await Projects.update(req.params.id, req.body);
-        res.status(201).json(req.body);
+        res.status(200).json(req.body);
     } catch (error) {
         next(error);
     }
  });
- 
+// This endpoint will successfully delete an existing project, but then hangs 
 router.delete('/:id', logger, checkProjectIdExists, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
-     // RReturns no response body.
-     // If there is no project with the given id it responds with a status code 404.
-    Projects.remove(req.params.id, req.body)
+    const { id } = req.params;
+    await Projects.remove(id)
     try {
         await Projects.remove(req.params.id);
-        res.status(201);
+        res.status(200).json({message: `Successfully deleted project id ${id}`});
     } catch (error) {
         next(error);
     }

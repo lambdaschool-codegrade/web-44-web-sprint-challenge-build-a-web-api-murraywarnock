@@ -6,19 +6,12 @@ const { logger, checkActionIdExists, checkValidAction } = require('../middleware
 
 const router = express.Router();
 
-// module.exports = {
-//     get,
-//     insert,
-//     update,
-//     remove,
-//   };
-
 router.get('/', logger, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     // Returns an array of actions (or an empty array) as the body of the response.
     try {
         const actions = await Actions.get()
-        res.status(201).json(actions);
+        res.status(200).json(actions);
     } catch (error) {
         next(error);
     }
@@ -30,7 +23,7 @@ router.get('/:id', logger, checkActionIdExists, async (req, res, next) => {
     // If there is no action with the given id it responds with a status code 404.
     try {
         const action = await Actions.get(req.params.id);
-        res.status(201).json(action);
+        res.status(200).json(action);
     } catch (error) {
         next(error);
     }
@@ -55,19 +48,18 @@ router.put('/:id', logger, checkActionIdExists, checkValidAction, async (req, re
     // If the request body is missing any of the required fields it responds with a status code 400.
     try {
         const action = await Actions.update(req.params.id, req.body);
-        res.status(201).json(action);
+        res.status(200).json(action);
     } catch (error) {
         next(error);
     }
 });
-
+// This endpoint will successfully delete an existing action, but then hangs
 router.delete('/:id', logger, checkActionIdExists, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
-    // Returns no response body.
-    // If there is no action with the given id it responds with a status code 404.
+    const { id } = req.params;
     try {
-        await Actions.remove(req.params.id);
-        res.status(201);
+        await Actions.remove(id);
+        res.status(200).json({message: `Successfully deleted action id ${id}`});
     } catch (error) {
         next(error);
     }
