@@ -1,10 +1,9 @@
 const Projects = require('../projects/projects-model');
 const Actions = require('../actions/actions-model');
 
-
 function logger(req, res, next) {
     console.log(
-        `[${new Date().toISOString()}] ${req.method} to ${req.url} from ${req.get('Origin')}`
+        `[${new Date().toISOString()}] ${req.method} to ${req.url}`
         );
         next();
     }
