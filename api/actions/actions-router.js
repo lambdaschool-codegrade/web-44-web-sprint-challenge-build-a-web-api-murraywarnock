@@ -13,9 +13,10 @@ const router = express.Router();
 //     remove,
 //   };
 
-router.get('/', logger, (req, res, next) => {
+router.get('/', logger, async (req, res, next) => {
     console.log(`hitting ${req.method} ${req.baseUrl}`);
     // Returns an array of actions (or an empty array) as the body of the response.
+    
 });
 
 router.get('/:id', logger, checkActionIdExists,  (req, res, next) => {
